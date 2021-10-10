@@ -6,18 +6,11 @@ orbs:
 version: 2.1
 jobs:
   test:
-    machine:
-      image: ubuntu-2004:202104-01
+    docker:
+      - image: cimg/node:14.18.0
+      - image: circleci/redis:6.2.5-alpine
     steps:
       - checkout
-      - run: docker run --name redis-gsuite-wrapper -d redis
-      - run:
-          name: Install Node
-          command: |
-            echo 'export NVM_DIR="/opt/circleci/.nvm"' >> $BASH_ENV
-            echo ' [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"' >> $BASH_ENV
-            nvm install v14.17.3
-            nvm alias default v14.17.3
       - node/install-packages
       - run: echo $SERVICEACCOUNT_JSON > lib/config/myaegee-serviceaccount.json
       - run: echo $SECRETS_JSON > lib/config/secrets.json
@@ -36,11 +29,11 @@ jobs:
     steps:
       - checkout
       - setup_remote_docker:
-          version: 20.10.7
+          version: 20.10.6
       - run: docker-compose -f docker/docker-compose.yml -f docker/docker-compose.dev.yml build --no-cache gsuite-wrapper
   eslint:
     docker:
-      - image: cimg/node:14.17.3
+      - image: cimg/node:14.18.0
     steps:
       - checkout
       - node/install-packages
@@ -66,7 +59,7 @@ jobs:
       - shellcheck/check
   audit:
     docker:
-      - image: cimg/node:14.17.3
+      - image: cimg/node:14.18.0
     steps:
       - checkout
       - run: npm audit --production
@@ -75,11 +68,11 @@ jobs:
           failure_message: The audit check for \`$CIRCLE_PROJECT_REPONAME\` has failed.
   docker-build-and-push:
     docker:
-      - image: cimg/node:14.17.3
+      - image: cimg/node:14.18.0
     steps:
       - checkout
       - setup_remote_docker:
-          version: 20.10.7
+          version: 20.10.6
       - node/install-packages
       - run: npx semantic-release
       - run: docker build  --tag aegee/gsuite-wrapper:$(node -p "require('./package.json').version") --tag aegee/gsuite-wrapper:latest -f docker/Dockerfile .
