@@ -11,6 +11,9 @@ jobs:
       - image: circleci/redis:6.2.5-alpine
     steps:
       - checkout
+      - run:
+          name: Wait for DB
+          command: sudo apt-get install redis-tools ; while ! redis-cli ping 2>/dev/null ; do sleep 1 ; done
       - node/install-packages
       - run: echo $SERVICEACCOUNT_JSON > lib/config/myaegee-serviceaccount.json
       - run: echo $SECRETS_JSON > lib/config/secrets.json
