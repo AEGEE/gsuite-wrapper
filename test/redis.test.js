@@ -21,7 +21,7 @@ after('stop server', async function(){
   console.log(result);
 });
 
-describe('Redis', function(){
+describe.skip('Redis', function(){
 
   const Redis = redis.db;
 
@@ -40,7 +40,7 @@ describe('Redis', function(){
   //        Redis.get("ciao").then(res => {console.log(res); done()});
   //    });
 
-  it('should FLUSH DB OMH', function(done){
+  it.skip('should FLUSH DB OMH', function(done){
     // redis.get("ciao").then(res => {console.log(res); done();}) ;
     Redis.flushdb().then(res => { console.log(res); done(); });
   });
