@@ -26,7 +26,8 @@ describe('Events', function(){
     endDate: endDate,
   };
 
-  describe('POST /calendar', function(){
+  // TODO: Skipped until deletion is also in the tests
+  describe.skip('POST /calendar', function(){
 
     it('Should add an event if valid', async() => {
 
