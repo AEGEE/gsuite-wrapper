@@ -2,7 +2,7 @@
   "url": "http://localhost",
   "port": 8084,
   "redis": {
-    "host": "localhost",
+    "host": "redis-gsuite-wrapper",
     "port": "6379",
     "lazyConnect": "true"
   }
