@@ -45,7 +45,7 @@ describe('Accounts', () => {
         const userPrimaryEmail = generatedUsername;
         const userSecondaryEmail = email;
 
-        let pip = redis.pipeline();
+        const pip = redis.pipeline();
 
         // user
         pip.hdel('user:' + userPK, 'GsuiteAccount');
