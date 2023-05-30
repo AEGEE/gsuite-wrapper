@@ -10,6 +10,7 @@ jobs:
     docker:
       - image: cimg/node:18.16.0
       - image: cimg/redis:6.2.12
+    resource_class: large
     steps:
       - checkout
       - node/install-packages
@@ -27,6 +28,7 @@ jobs:
   build:
     docker:
       - image: cimg/base:2023.05
+    resource_class: large
     steps:
       - checkout
       - setup_remote_docker:
@@ -35,6 +37,7 @@ jobs:
   eslint:
     docker:
       - image: cimg/node:18.16.0
+    resource_class: large
     steps:
       - checkout
       - node/install-packages
@@ -47,6 +50,7 @@ jobs:
   yamllint:
     docker:
       - image: cimg/python:3.11.3
+    resource_class: large
     steps:
       - checkout
       - run: pip install yamllint
@@ -54,6 +58,7 @@ jobs:
   shellcheck:
     docker:
       - image: cimg/base:2023.05
+    resource_class: large
     steps:
       - checkout
       - shellcheck/install
@@ -61,6 +66,7 @@ jobs:
   audit:
     docker:
       - image: cimg/node:18.16.0
+    resource_class: large
     steps:
       - checkout
       - run: npm audit --production
@@ -107,6 +113,7 @@ jobs:
   docker-build-and-push:
     docker:
       - image: cimg/node:18.16.0
+    resource_class: large
     steps:
       - checkout
       - setup_remote_docker:
