@@ -220,7 +220,7 @@ workflows:
       - build:
           filters:
             branches:
-              ignore: main
+              ignore: stable
   test:
     jobs:
       - test
@@ -229,13 +229,13 @@ workflows:
       - docker-build-and-push:
           filters:
             branches:
-              only: main
+              only: stable
   audit:
     triggers:
       - schedule:
           cron: "0 0 * * 5"
           filters:
             branches:
-              only: main
+              only: stable
     jobs:
       - audit
